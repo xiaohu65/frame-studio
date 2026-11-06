@@ -1,0 +1,98 @@
+[data-slot="dialog-content"].series-workspace {
+  --series-space: 24px;
+  max-height: calc(100dvh - 64px);
+  scroll-padding-block: 112px 96px;
+}
+
+.series-header,
+.series-footer {
+  position: sticky;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--series-space);
+  padding: var(--series-space) 0;
+  background: var(--card);
+}
+
+.series-header {
+  top: 0;
+}
+
+.series-header [data-slot="button"][data-size^="icon"] {
+  flex-shrink: 0;
+}
+
+.series-content {
+  display: grid;
+  gap: var(--series-space);
+  min-width: 0;
+  padding: var(--series-space) 0;
+}
+
+.series-content [hidden] {
+  display: none;
+}
+
+.series-catalog-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--series-space);
+  margin-top: var(--series-space);
+}
+
+.series-catalog-form {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: end;
+  gap: 12px;
+  min-width: 0;
+}
+
+.series-relationship,
+.series-stat-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1px;
+  margin: 0;
+}
+
+.series-stat-grid {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.series-relationship > div,
+.series-stat-grid > div {
+  display: grid;
+  align-content: start;
+  gap: 6px;
+  padding: 16px var(--series-space);
+}
+
+.series-stat-grid dd,
+.series-relationship dd {
+  margin: 0;
+}
+
+.series-stat-grid dd {
+  font-variant-numeric: tabular-nums;
+}
+
+.series-tabs {
+  margin-bottom: var(--series-space);
+}
+
+.series-loading {
+  min-height: 112px;
+}
+
+.series-footer {
+  bottom: 0;
+}
+
+.series-footer [data-slot="button"] {
+  flex-shrink: 0;
+}
+
+.replacement-path{padding:16px 18px;margin-bottom:20px}.replacement-path strong{display:block}.review-issue-groups{display:grid;gap:10px;margin:16px 0}.review-issue-group{padding:13px 16px}.review-issue-group .issue-list{margin-top:12px}.review-inputs{padding:16px;margin:16px 0}.review-inputs table{margin-top:10px}.review-inputs small{display:block;overflow-wrap:anywhere}

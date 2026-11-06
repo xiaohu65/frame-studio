@@ -1,0 +1,84 @@
+.workspace-heading .shell-refresh {
+  flex-shrink: 0;
+  margin: 0;
+}
+
+.workspace .shell-callout {
+  margin: 0 0 16px;
+}
+.replacement-workspace .workspace-layout {align-items: flex-start; margin: 0 auto; max-width: 1800px; width: 100%;}
+.replacement-workspace .workspace {padding: 28px 32px 48px; max-width: 1380px;}
+.replacement-workspace .project-context { padding: 17px 20px; margin: 0 0 28px;}
+.replacement-workspace .project-context>div:first-child {display: flex; align-items: baseline; gap: 12px; flex-wrap: wrap;}
+.replacement-workspace .context-label { display: block;}
+.replacement-workspace .project-context-meta {display: flex; flex-wrap: wrap; gap: 6px 18px;}
+.replacement-workspace .project-context-meta>span {overflow-wrap: anywhere;}
+.replacement-workspace .workspace-heading {margin: 0 0 18px; scroll-margin-top: 96px;}
+.replacement-workspace .task-context {display: grid; grid-template-columns: 1fr auto; gap: 20px; padding: 16px 18px; margin-bottom: 24px;}
+.replacement-workspace .task-context strong {display: block;}
+.replacement-workspace .task-context>div:last-child { padding-left: 20px;}
+.replacement-workspace .task-context>div:last-child>span {display: block; margin-bottom: 4px;}
+.replacement-workspace .task-segment-picker {margin: 0 0 24px; padding: 18px;}
+.replacement-workspace .task-segment-picker .section-top {margin-bottom: 12px;}
+.replacement-workspace .current-task-content>.stage-body {padding-top: 0; margin-top: 0;}
+.replacement-workspace .field { margin-bottom: 18px;}
+.replacement-workspace .processing-feedback { margin: 12px 0 20px;}
+.replacement-workspace .processing-feedback strong,
+.replacement-workspace .processing-feedback span {display: block;}
+.replacement-workspace .processing-feedback span { margin-top: 4px;}
+.replacement-workspace [id].task-section,
+.replacement-workspace .role-block[id] {scroll-margin-top: 96px;}
+.replacement-workspace .inspector {width: 278px; margin-top: 28px; margin-right: 28px; padding: 20px;}
+.replacement-workspace .inspector .field {display: flex;}
+@media (max-width: 1390px) {
+  .replacement-workspace .workspace-layout {display: block;}
+  .replacement-workspace .workspace {max-width: 1100px; padding: 26px;}
+  .replacement-workspace .inspector {display: block; width: auto; margin: 0 26px 30px; padding: 20px;}
+  .replacement-workspace .inspector>section {margin: 0 0 18px; padding-bottom: 18px;}
+  .replacement-workspace .inspector>section:last-child {margin-bottom: 0; padding-bottom: 0;}
+}
+@media (max-width: 1000px) {
+  .replacement-workspace .workspace {padding: 22px;}
+  .replacement-workspace .task-context {grid-template-columns: 1fr; gap: 10px;}
+  .replacement-workspace .task-context>div:last-child { padding: 10px 0 0;}
+}
+@media (max-width: 760px) {
+  .workspace .shell-callout {flex-wrap: wrap;}
+  .replacement-workspace .workspace {padding: 20px 14px;}
+  .replacement-workspace .project-context {padding: 14px; margin-bottom: 22px;}
+  .replacement-workspace .workspace-heading {scroll-margin-top: 138px;}
+  .replacement-workspace .task-context {padding: 13px 14px;}
+  .replacement-workspace .task-segment-picker {padding: 14px;}
+  .replacement-workspace .inspector {margin: 0 14px 24px; padding: 16px;}
+}
+@media (prefers-reduced-motion: reduce) {
+  .replacement-workspace * {scroll-behavior: auto;}
+}
+
+/* Keep the source task in one column; details stay available at named entries. */
+.source-workspace .workspace-layout {max-width:1192px;}
+.source-workspace .workspace {max-width:none; padding:42px 44px 64px;}
+.source-workspace .workspace-heading {align-items:center; margin-bottom:26px;}
+.source-workspace .task-tools {display:flex; align-items:center; flex-wrap:wrap; gap:10px 24px; margin-top:20px; padding:0 2px;}
+.source-workspace .task-tools .local-only-state {margin-left:auto;}
+.replacement-workspace .support-dialog {width:min(1080px,calc(100vw - 64px)); max-width:none; max-height:calc(100dvh - 64px);}
+.support-dialog.workspace-support-dialog {width:min(1080px,100%); max-height:calc(100dvh - 64px);}
+:is(.replacement-workspace, .workspace-support-dialog) .support-dialog-heading {position:sticky; top:0; z-index:5; display:flex; align-items:center; justify-content:space-between; gap:20px; padding:22px 0 18px; margin-bottom:20px; background:var(--card);}
+.workspace-support-dialog .support-dialog-body {min-width:0;}
+.workspace-support-dialog .support-dialog-body>.segment-list {margin:0 0 18px;}
+.workspace-support-dialog .support-dialog-body .timeline {margin-top:24px;}
+.workspace-support-dialog .support-dialog-body>.job-list {margin:0;}
+@media (max-width:1100px) {
+ .source-workspace .workspace {padding:32px 28px 48px;}
+}
+@media (max-width:900px) {
+ .source-workspace .workspace {padding:28px 22px 40px;}
+}
+@media (max-width:760px) {
+ .source-workspace .workspace {padding:24px 16px 40px;}
+ .source-workspace .workspace-heading {margin-bottom:20px;}
+ .source-workspace .task-tools {gap:4px 18px;}
+ .source-workspace .task-tools .local-only-state {flex-basis:100%; margin-left:0;}
+ .replacement-workspace .support-dialog {width:calc(100vw - 24px); max-height:calc(100dvh - 24px);}
+ .support-dialog.workspace-support-dialog {max-height:calc(100dvh - 40px);}
+}

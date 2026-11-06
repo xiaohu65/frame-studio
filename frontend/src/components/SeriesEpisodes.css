@@ -1,0 +1,62 @@
+.series-episodes,
+.series-episode-panel[data-slot="card"] {
+  min-width: 0;
+}
+
+.series-episodes,
+.series-episode-panel[data-slot="card"] > [data-slot="card-content"] {
+  display: grid;
+  gap: var(--series-space, 24px);
+}
+
+.series-episode-form {
+  display: grid;
+  grid-template-columns: minmax(150px, .55fr) minmax(200px, 1.45fr) auto;
+  align-items: end;
+  gap: var(--series-space, 24px);
+}
+
+.series-episode-batch-form {
+  grid-template-columns: minmax(150px, 220px) minmax(175px, 245px) auto;
+  justify-content: start;
+}
+
+.series-episode-batch-content {
+  gap: var(--series-space, 24px);
+}
+
+@layer components {
+
+  .series-episode-batch-content {
+  display: grid;
+  }
+}
+
+.series-episode-col-name { width: 22%; }
+.series-episode-col-count { width: 13%; }
+.series-episode-col-state { width: 19%; }
+.series-episode-col-issues { width: 30%; }
+.series-episode-col-action { width: 170px; }
+
+.series-episode-table [data-slot="table-cell"] {
+  vertical-align: top;
+  overflow-wrap: anywhere;
+  white-space: normal;
+}
+
+.series-episode-table [data-slot="table-cell"]:last-child {
+  text-align: end;
+}
+
+.series-episode-table [data-slot="table-cell"][colspan] {
+  text-align: center;
+}
+
+.series-episode-issue-list {
+  margin: 0;
+  padding-inline-start: 18px;
+}
+
+.series-episode-issue-list > li + li {
+  margin-top: 8px;
+}

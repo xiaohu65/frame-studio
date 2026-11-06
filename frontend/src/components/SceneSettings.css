@@ -1,0 +1,106 @@
+.scene-settings-panel {
+  min-width: 0;
+  scroll-margin-top: 116px;
+}
+
+.scene-settings-fieldset {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  min-width: 0;
+  margin: 0;
+  padding: 0;
+}
+
+.scene-settings-fields,
+.scene-setting-region-fields,
+.scene-setting-coordinate-fields {
+  /* Fixed column layouts avoid size-container collapse inside native fieldsets. */
+  container-type: normal;
+}
+
+.scene-settings-fields,
+.scene-setting-region-fields {
+  gap: 16px;
+}
+
+.scene-setting-coordinate-fields {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  align-items: start;
+  gap: 12px;
+}
+
+.scene-setting-field {
+  min-width: 0;
+}
+
+.scene-setting-field :is([data-slot="input"], [data-slot="select-trigger"]) {
+  width: 100%;
+  min-width: 0;
+}
+
+.scene-settings-disclosure-body {
+  gap: 24px;
+  min-width: 0;
+  margin-top: 16px;
+}
+
+.scene-setting-regions,
+.scene-setting-references,
+.scene-setting-region,
+.scene-setting-region-content {
+  display: grid;
+  min-width: 0;
+  gap: 16px;
+}
+
+.scene-setting-region-heading,
+.scene-setting-image-caption {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.scene-setting-confirm {
+  align-items: start;
+}
+
+.scene-settings-save {
+  display: flex;
+  align-items: center;
+  justify-content: end;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.scene-setting-image-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.scene-setting-image {
+  display: grid;
+  min-width: 0;
+  gap: 8px;
+}
+
+.scene-setting-image-link {
+  display: block;
+  aspect-ratio: 4 / 3;
+}
+
+.scene-setting-image-link img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+@layer components {
+  .scene-settings-disclosure-body {
+    display: grid;
+  }
+}

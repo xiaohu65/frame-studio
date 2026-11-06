@@ -1,0 +1,207 @@
+.position-review {
+  --position-space: 24px;
+  display: grid;
+  gap: 20px;
+  min-width: 0;
+}
+
+.position-review :is([data-slot="select-trigger"], [data-slot="input"]) {
+  width: 100%;
+  min-width: 0;
+}
+
+.position-review-field {
+  display: grid;
+  align-content: start;
+  gap: 8px;
+  min-width: 0;
+}
+
+.position-review-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.position-review-toolbar > .position-review-field {
+  flex: 0 1 360px;
+}
+
+.position-review-current-segment {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 0;
+}
+
+.people-position-review .position-review .position-review-note {
+  margin: 0;
+}
+
+.position-review-layout {
+  display: grid;
+  grid-template-columns: 224px minmax(0, 1fr);
+  align-items: start;
+  gap: var(--position-space);
+}
+
+.position-review-list {
+  display: grid;
+  align-content: start;
+  gap: 20px;
+  max-height: 520px;
+  padding: 4px;
+  overflow: auto;
+  overscroll-behavior: contain;
+}
+
+.position-review-shot {
+  display: grid;
+  min-width: 0;
+  gap: 12px;
+}
+
+.position-review-rows {
+  display: grid;
+  gap: 8px;
+}
+
+.position-review-row {
+  display: flex;
+  align-items: start;
+  gap: 8px;
+  min-width: 0;
+}
+
+.position-review .position-review-row-select[data-slot="button"] {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  justify-items: start;
+  gap: 4px 8px;
+  flex: 1;
+  min-width: 0;
+  text-align: start;
+  white-space: normal;
+}
+
+.position-review .position-review-remove[data-slot="button"][data-size^="icon"] {
+  flex: 0 0 auto;
+}
+
+.position-review-row-select > [data-slot="badge"] {
+  grid-column: 1 / -1;
+  justify-self: start;
+}
+
+.position-review-content {
+  min-width: 0;
+}
+
+.position-review-editor {
+  display: grid;
+  gap: 16px;
+  min-width: 0;
+}
+
+.position-review-player-meta {
+  display: grid;
+  grid-template-columns: auto minmax(180px, 1fr);
+  align-items: end;
+  gap: var(--position-space);
+}
+
+.position-review-time {
+  font-variant-numeric: tabular-nums;
+}
+
+/* Drag coordinates and the video must share the same source-ratio rectangle. */
+.position-review-video {
+  position: relative;
+  width: 100%;
+  max-width: 720px;
+  justify-self: center;
+  overflow: hidden;
+  background: var(--media-background);
+}
+
+.position-review-video > video,
+.position-review-box-surface {
+  position: absolute;
+  inset: 0;
+}
+
+.position-review-video > video {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.position-review-box-surface {
+  pointer-events: none;
+}
+
+.position-review-box-surface[data-drawing='true'] {
+  cursor: crosshair;
+  pointer-events: auto;
+  touch-action: none;
+  background: var(--card);
+}
+
+.position-review-video .identity-box > span {
+  font-size: 12px;
+}
+
+.position-review-player-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.position-review-disclosure-trigger[data-state='open'] > svg {
+  transform: rotate(180deg);
+}
+
+.position-review-disclosure-content {
+  gap: 16px;
+  min-width: 0;
+  margin-top: 12px;
+}
+
+@layer components {
+
+  .position-review-disclosure-content {
+  display: grid;
+  }
+}
+
+.position-review-disclosure-compact > .position-review-disclosure-content {
+  gap: 8px;
+  margin-top: 8px;
+}
+
+.position-review-disclosure-content[hidden] {
+  display: none;
+}
+
+.position-review-precision,
+.position-review-coordinates {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.position-review-coordinates {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.position-review-confirm {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.position-review-confirm [data-slot="checkbox"] {
+  flex: 0 0 auto;
+}

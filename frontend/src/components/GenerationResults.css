@@ -1,0 +1,87 @@
+.generation-result-panel[data-slot="card"],
+.generation-result-run[data-slot="card"] {
+  min-width: 0;
+}
+
+.generation-result-panel[data-slot="card"] > [data-slot="card-content"],
+.generation-result-run[data-slot="card"] > [data-slot="card-content"] {
+  display: grid;
+  gap: var(--generation-space, 24px);
+}
+
+.generation-result-heading,
+.generation-result-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.generation-result-heading {
+  justify-content: space-between;
+}
+
+.generation-result-actions {
+  flex-wrap: wrap;
+}
+
+.generation-run-table[data-slot="table"] {
+  overflow-wrap: anywhere;
+}
+
+.generation-run-table [data-slot="table-cell"] {
+  white-space: normal;
+}
+
+.generation-result-cell,
+.generation-result-adopt,
+.generation-result-records,
+.generation-sample-playback,
+.generation-audition-player {
+  display: grid;
+  gap: 8px;
+  min-width: 0;
+}
+
+.generation-result-cell {
+  justify-items: start;
+}
+
+.generation-result-cell [data-slot="badge"] {
+  white-space: normal;
+}
+
+.generation-result-cell [data-slot="button"] {
+  white-space: normal;
+  text-align: start;
+}
+
+.generation-result-adopt {
+  width: 100%;
+}
+
+.generation-result-adopt-controls {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 8px;
+}
+
+.generation-result-records,
+.generation-sample-playback {
+  gap: 16px;
+}
+
+.generation-sample-playback video,
+.generation-sample-playback audio {
+  display: block;
+  width: 100%;
+}
+
+.generation-sample-playback video {
+  max-height: 460px;
+  background: var(--media-background);
+}
+
+.generation-audition-player {
+  padding: 16px;
+}

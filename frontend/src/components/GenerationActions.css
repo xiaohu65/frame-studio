@@ -1,0 +1,158 @@
+.generation-action-card[data-slot="card"] {
+  min-width: 0;
+}
+
+.generation-action-card[data-slot="card"] > [data-slot="card-content"] {
+  display: grid;
+  align-content: start;
+  gap: var(--generation-space, 24px);
+}
+
+.generation-summary-main {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--generation-space, 24px);
+}
+
+.generation-summary .generation-scope {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) minmax(0, 1.2fr);
+  gap: var(--generation-space, 24px);
+}
+
+.generation-action-stack {
+  display: grid;
+  align-content: start;
+  justify-items: start;
+  min-width: 0;
+  gap: 12px;
+  overflow-wrap: anywhere;
+}
+
+.generation-action-stack > .generation-disclosure {
+  justify-self: stretch;
+}
+
+.generation-action-stack p,
+.generation-quote p,
+.generation-duration-warnings,
+.generation-pricing-list,
+.generation-problem-list {
+  margin: 0;
+}
+
+.generation-duration-warnings {
+  padding-inline-start: 18px;
+}
+
+.generation-material-confirmation {
+  display: grid;
+  gap: var(--generation-space, 24px);
+}
+
+.generation-material-confirmation:empty {
+  display: none;
+}
+
+.generation-problem-list {
+  display: grid;
+  gap: 12px;
+  padding: 0;
+  list-style: none;
+}
+
+.generation-problem-list > li {
+  display: grid;
+  gap: 12px;
+  min-width: 0;
+  padding: 16px;
+}
+
+.generation-problem-list > .generation-problem-blocking {
+  border-color: var(--warning-border);
+  background: var(--warning-muted);
+}
+
+.generation-action-card :is(.generation-existing-material, .generation-export-result, .generation-quote) {
+  padding-top: var(--generation-space, 24px);
+}
+
+.generation-quote {
+  display: grid;
+  gap: var(--generation-space, 24px);
+  min-width: 0;
+}
+
+.generation-quote-contract {
+  padding: 16px;
+}
+
+.generation-quote-contract code {
+  overflow-wrap: anywhere;
+}
+
+.generation-quote-contract .generation-parameters {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 12px 20px;
+  width: 100%;
+  margin: 0;
+}
+
+.generation-quote-contract dd {
+  margin: 4px 0 0;
+  font-variant-numeric: tabular-nums;
+}
+
+.generation-quote-costs {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  margin: 0;
+}
+
+.generation-quote-costs > div {
+  display: grid;
+  gap: 4px;
+  min-width: 0;
+  padding: var(--generation-space, 24px);
+}
+
+.generation-quote-costs dd {
+  margin: 0;
+  font-variant-numeric: tabular-nums;
+}
+
+.generation-pricing-list {
+  display: grid;
+  gap: 8px;
+  padding: 0;
+  list-style: none;
+}
+
+.generation-pricing-list li {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 16px;
+}
+
+.generation-review-checks {
+  display: grid;
+  min-width: 0;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+.generation-control-check {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  min-height: 48px;
+  padding: 12px 16px;
+  cursor: pointer;
+}
+
+.generation-control-check:has([disabled]) {
+  cursor: default;
+}

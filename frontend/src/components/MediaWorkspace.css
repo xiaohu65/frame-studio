@@ -1,0 +1,37 @@
+.preview-mode-tabs{flex-wrap:wrap;align-items:center;margin-bottom:12px}.playback-purpose{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:12px 14px;margin-bottom:0}.playback-purpose>div{display:flex;flex-direction:column;gap:3px;min-width:0}.playback-purpose .purpose-duration{flex-shrink:0;font-variant-numeric:tabular-nums;white-space:nowrap}.playback-purpose.source-selection{border-color:var(--warning-border);background:var(--warning-muted)}.playback-purpose.source-selection strong,
+.playback-purpose.source-selection .purpose-duration{color:var(--warning)}.preview-file-facts{display:grid;grid-template-columns:minmax(140px,.8fr) minmax(150px,1.3fr) minmax(160px,1fr);gap:14px;margin:0;padding:10px 14px}.preview-file-facts>div{min-width:0}.preview-file-facts dt{margin-bottom:3px}.preview-file-facts dd{margin:0;overflow-wrap:anywhere;font-variant-numeric:tabular-nums}.submission-preview>.preview{border-radius:0 0 var(--radius) var(--radius)}.submission-preview .preview.compare video{object-fit:contain}.submission-preview .preview-label{max-width:calc(100% - 16px);font-size:11px;line-height:1.5;white-space:normal}.submission-preview .preview.compare>div{position:relative}.segment-list .segment-copy>div{flex-wrap:wrap}.segment-list .segment-copy small{overflow:hidden;text-overflow:ellipsis;display:block;max-width:100%;white-space:nowrap}@media(max-width:720px){.preview-file-facts{grid-template-columns:1fr;gap:8px;padding:10px}.preview-file-facts>div{display:grid;grid-template-columns:70px minmax(0,1fr);gap:8px}.preview-file-facts dt{margin:0}.playback-purpose{align-items:flex-start;padding:10px;gap:10px;flex-wrap:wrap}.submission-preview .preview.compare{aspect-ratio:4/5}.submission-preview .preview.compare>div{height:50%}.submission-preview .preview.compare video{object-fit:contain}}
+.submission-preview .preview-size-controls{display:flex;justify-content:space-between;align-items:center;gap:16px;margin-bottom:10px}
+.submission-preview.preview-compact .preview{height:300px;max-height:45vh;aspect-ratio:auto}
+.submission-preview.preview-compact.preview-expanded .preview{height:560px;max-height:75vh}
+.submission-preview.preview-compact .preview.compare>div{height:100%}
+.segment-single-select .segment-row:focus-visible{outline:3px solid var(--ring)}
+.segment-single-select .segment-thumb video{width:100%;height:100%;object-fit:cover;pointer-events:none}
+.segment-single-select .segment-file-states{display:flex;flex-direction:column;align-items:flex-end;gap:5px;min-width:120px}
+.segment-single-select .segment-file-states>span{padding:3px 6px;white-space:nowrap}
+.segment-single-select.segment-list-compact{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:10px;margin:0}
+.segment-single-select.segment-list-compact .segment-row{position:relative;align-items:flex-start;flex-wrap:wrap;padding:12px;gap:10px;min-height:112px}
+.segment-single-select.segment-list-compact .segment-thumb{display:none}
+.segment-single-select.segment-list-compact .segment-copy{flex-basis:calc(100% - 35px)}
+.segment-single-select.segment-list-compact .segment-copy>div{display:flex;flex-direction:column;align-items:flex-start;gap:3px}
+.segment-single-select.segment-list-compact .segment-copy small{white-space:normal}
+.segment-single-select.segment-list-compact .segment-file-states{flex-direction:row;flex-wrap:wrap;align-items:center;margin-left:29px;gap:5px}
+.job-list .job-section-heading{display:flex;justify-content:space-between;align-items:baseline;gap:12px;margin-bottom:8px}
+.job-list .job-info small{white-space:normal;overflow:visible;text-overflow:clip}
+.job-list .job-info .job-outdated{color:var(--warning);margin-top:3px}
+.job-list .job-history{margin-top:10px;padding:0 12px}
+.result-technical{margin-top:10px}
+.path-import .path-import-help{display:block;margin:7px 0}
+.path-import .error-text{margin:7px 0}
+@media(max-width:760px){
+ .submission-preview.preview-compact .preview{height:235px;max-height:none}
+ .submission-preview.preview-compact.preview-expanded .preview{height:420px;max-height:70vh}
+ .submission-preview.preview-compact .preview.compare{height:440px;flex-direction:column}
+ .submission-preview.preview-compact .preview.compare>div{width:100%;height:50%}
+ .submission-preview .preview-size-controls{align-items:flex-start}
+ .segment-single-select .segment-row{flex-wrap:wrap}
+ .segment-single-select .segment-file-states{flex-direction:row;justify-content:flex-start;align-items:center;flex-basis:100%;margin-left:28px}
+ .segment-single-select.segment-list-compact{grid-template-columns:1fr}
+ .segment-single-select .segment-copy small{max-width:none;white-space:normal}
+ .job-list .job-section-heading{flex-direction:column;gap:4px}
+ .job-list .job-info{min-width:calc(100% - 28px)}
+}

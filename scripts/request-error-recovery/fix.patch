@@ -1,0 +1,176 @@
+--- a/frontend/src/api.js
++++ b/frontend/src/api.js
+@@ -1,15 +1,59 @@
++// Carry useful request context without putting query parameters or bodies in errors.
++const stateRead = (method, path) => method === 'GET' && path === '/api/state';
++const pathname = path => new URL(path, 'http://frame-studio.local').pathname;
++
++function failure(message, {method,path,status=0,kind,code,serverMessage,current_revision,retryableRead=false}) {
++  const diagnostic=`${method} ${path} · ${status ? `HTTP ${status}` : '无响应'} · ${code || kind}`;
++  const error=new Error(`${message}${status>=500||!status||kind==='invalid-response'?`（${diagnostic}）`:''}`);
++  Object.assign(error,{method,path,status,kind,code,serverMessage,current_revision,retryableRead,diagnostic});
++  return error;
++}
++
+ export async function request(path, options = {}) {
+-  const response = await fetch(path, {
+-    ...options,
+-    headers: options.body instanceof File ? {'Content-Type':'application/octet-stream',...(options.headers||{})} : {'Content-Type':'application/json',...(options.headers||{})},
+-    body: options.body instanceof File ? options.body : options.body === undefined ? undefined : JSON.stringify(options.body),
+-  });
+-  const type=response.headers.get('content-type')||'';
+-  const data=type.includes('json') ? await response.json() : {error:await response.text()};
+-  if (!response.ok || data.error) {
+-    const error=new Error(data.error || `请求未完成（${response.status}）`);
+-    error.status=response.status;error.code=data.code;error.current_revision=data.current_revision;
+-    throw error;
++  const method=(options.method||'GET').toUpperCase(),route=pathname(path);
++  const file=typeof File!=='undefined'&&options.body instanceof File;
++  const context={method,path:route};
++  const uncertain=method==='GET'?'请保留页面和草稿，重新读取状态。':'操作结果尚不能确认，未自动重发。请先核对项目或已有生成任务，勿重复提交。';
++  let response;
++  try {
++    response=await fetch(path,{
++      ...options,
++      headers:file?{'Content-Type':'application/octet-stream',...(options.headers||{})}:{'Content-Type':'application/json',...(options.headers||{})},
++      body:file?options.body:options.body===undefined?undefined:JSON.stringify(options.body),
++    });
++  } catch(cause) {
++    if(cause.name==='AbortError'||options.signal?.aborted)throw cause;
++    throw failure(`暂时连接不到本机服务。${uncertain}`,{...context,kind:'network',code:'SERVICE_UNREACHABLE',retryableRead:stateRead(method,route)});
++  }
++  const status=response.status,type=response.headers.get('content-type')||'';
++  let text;
++  try {text=await response.text();}
++  catch(cause) {
++    if(cause.name==='AbortError'||options.signal?.aborted)throw cause;
++    throw failure(`本机服务响应未读取完整。${uncertain}`,{...context,status,kind:'network',code:'INCOMPLETE_RESPONSE',retryableRead:stateRead(method,route)});
++  }
++  let data;
++  if(type.includes('json')) {
++    try {data=JSON.parse(text);}
++    catch {
++      throw failure(`接口返回了无法读取的状态数据。${uncertain}`,{...context,status,kind:'invalid-response',code:'INVALID_JSON',retryableRead:stateRead(method,route)&&status>=500});
++    }
++  }
++  if(data&&typeof data==='object'&&data.error) {
++    const message=typeof data.error==='string'?data.error:data.error.message||'接口返回业务错误';
++    throw failure(message,{...context,status,kind:'backend',serverMessage:message,code:data.code,current_revision:data.current_revision});
++  }
++  if(!response.ok) {
++    const empty=!text.trim();
++    const html=/<(?:!doctype|html|head|body|script)\b/i.test(text);
++    const message=empty?`本机接口未返回错误详情（HTTP ${status}），可能正在重载，也可能是代理或服务异常。${uncertain}`:
++      html?`接口返回了错误页面（HTTP ${status}）。${uncertain}`:
++      data?`请求未完成（HTTP ${status}）。${uncertain}`:text.trim().slice(0,500);
++    throw failure(message,{...context,status,kind:empty?'empty-response':'http',code:empty?'EMPTY_ERROR_RESPONSE':'HTTP_ERROR',
++      retryableRead:stateRead(method,route)&&status>=500&&(empty||[502,503,504].includes(status))});
++  }
++  if(!data||typeof data!=='object') {
++    throw failure(`接口没有返回项目状态数据，请核对当前页面入口。${uncertain}`,{...context,status,kind:'invalid-response',code:'EXPECTED_JSON'});
+   }
+   return data;
+ }
+--- a/frontend/src/App.jsx
++++ b/frontend/src/App.jsx
+@@ -1,6 +1,7 @@
+ import React,{useEffect,useState,useCallback,useRef} from 'react';
+ import {Settings,ChevronDown,ChevronRight,Plus,X,RefreshCw,FolderOpen,Video,AlertCircle} from 'lucide-react';
+ import {request,upload,time} from './api';
++import {readState,startStatePolling} from './stateRead.js';
+ import {Button,Notice,JobList,Empty,actionName} from './components/Common';
+ import {MediaPreview,SegmentList,Timeline} from './components/MediaWorkspace';
+ import {SourceStage,PuppetStage,AssetsStage,GenerateStage,MusicStage} from './components/Stages';
+@@ -21,6 +22,7 @@
+  const [seriesOpen,setSeriesOpen]=useState(false),[navigationRequest,setNavigationRequest]=useState(null),[previewOpen,setPreviewOpen]=useState(false),[supportOpen,setSupportOpen]=useState(null);
+  const heading=useRef(null);
+  const savePending=useRef(false);
++ const [readError,setReadError]=useState(null);
+  const [saveConflict,setSaveConflict]=useState(null),[conflictChoices,setConflictChoices]=useState({});
+  useEffect(()=>{if(saveConflict&&saveConflict.projectId!==activeId){saveConflict.resolve(null);setSaveConflict(null);}},[activeId,saveConflict]);
+  useEffect(()=>{
+@@ -46,14 +48,14 @@
+   return()=>{cancelled=true;cancelAnimationFrame(frame);};
+  },[navigationRequest,step,project?.id]);
+  useEffect(()=>{setPreviewOpen(false);setSupportOpen(null);},[step,project?.id]);
+- const refresh=useCallback(async(id=activeId)=>{const s=await request('/api/state'+(id?'?project_id='+encodeURIComponent(id):''));if(id&&activeIdRef.current&&id!==activeIdRef.current)return s;setState(s);if(id&&s.project?.id!==id){const p=await request(`/api/projects/${id}`);if(activeIdRef.current===id)setProject(current=>newerProject(current,p.project||p));}else{setProject(current=>newerProject(current,s.project));if(!id&&s.project){activeIdRef.current=s.project.id;setActiveId(s.project.id);}}return s;},[activeId]);
+- useEffect(()=>{let live=true;async function boot(){try{let s;try{s=await request('/api/state'+(initial.current.projectId?'?project_id='+encodeURIComponent(initial.current.projectId):''));}catch(e){if(!initial.current.projectId)throw e;s=await request('/api/state');}if(!live)return;setState(s);setProject(s.project);activeIdRef.current=s.project?.id||null;setActiveId(s.project?.id||null);if(s.project){const nav=workspaceForProject(s.project,window.location.search,window.localStorage);setStep(nav.step);setSegmentId(nav.segmentId);setMode(nav.mode);}}catch(e){if(live)setError(e.message);}finally{if(live)setLoading(false);}}boot();return()=>{live=false;};},[]);
++ const refresh=useCallback(async(id=activeId,signal)=>{const s=await readState(id,{signal});if(signal?.aborted||(id&&activeIdRef.current&&id!==activeIdRef.current))return s;setState(s);if(id&&s.project?.id!==id){const p=await request(`/api/projects/${id}`);if(activeIdRef.current===id)setProject(current=>newerProject(current,p.project||p));}else{setProject(current=>newerProject(current,s.project));if(!activeIdRef.current&&s.project){activeIdRef.current=s.project.id;setActiveId(s.project.id);}}setReadError(null);return s;},[activeId]);
++ useEffect(()=>{let live=true,timer,failures=0;const controller=new AbortController();async function boot(){if(activeIdRef.current)return;try{let s;try{s=await readState(initial.current.projectId,{signal:controller.signal});}catch(e){if(!initial.current.projectId||e.status!==404)throw e;s=await readState(null,{signal:controller.signal});}if(!live||activeIdRef.current)return;setState(s);setProject(s.project);setReadError(null);activeIdRef.current=s.project?.id||null;setActiveId(s.project?.id||null);if(s.project){const nav=workspaceForProject(s.project,window.location.search,window.localStorage);setStep(nav.step);setSegmentId(nav.segmentId);setMode(nav.mode);}}catch(e){if(live&&e.name!=='AbortError'){setReadError(e);if(e.retryableRead)timer=setTimeout(boot,Math.min(30000,3000*2**Math.min(failures++,4)));}}finally{if(live)setLoading(false);}}boot();return()=>{live=false;clearTimeout(timer);controller.abort();};},[]);
+  useEffect(()=>{if(loading||!project||activeIdRef.current!==project.id)return;const value={step,segmentId,mode};saveWorkspace(window.localStorage,project.id,value);window.history.replaceState(null,'',window.location.pathname+workspaceSearch(project.id,value));},[loading,project?.id,step,segmentId,mode]);
+- useEffect(()=>{if(!activeId)return;const id=setInterval(()=>refresh(activeId).catch(e=>setError(e.message)),3000);return()=>clearInterval(id);},[activeId,refresh]);
++ useEffect(()=>{if(!activeId)return;return startStatePolling({read:signal=>refresh(activeId,signal),onError:setReadError});},[activeId,refresh]);
+  useEffect(()=>{const update=()=>setDraftCount(unsavedDraftCount(activeId||''));const leave=e=>{if(unsavedDraftCount()){e.preventDefault();e.returnValue='';}};update();window.addEventListener('frame-studio-drafts',update);window.addEventListener('beforeunload',leave);return()=>{window.removeEventListener('frame-studio-drafts',update);window.removeEventListener('beforeunload',leave);};},[activeId]);
+  useEffect(()=>{if(toast){const id=setTimeout(()=>setToast(''),4500);return()=>clearTimeout(id);}},[toast]);
+  useEffect(()=>{if(project&&!project.segments?.some(s=>s.id===segmentId))setSegmentId(project.segments?.[0]?.id||'');},[project?.id,project?.segments,segmentId]);
+- async function safe(fn,label){setError('');if(label)setBusy(label);try{return await fn();}catch(e){setError(e.message);return null;}finally{if(label)setBusy('');}}
++ async function safe(fn,label){setError('');if(label)setBusy(label);try{return await fn();}catch(e){if(e.method==='GET'&&e.path==='/api/state')setReadError(e);else setError(e.message);return null;}finally{if(label)setBusy('');}}
+  const patch=(partial,draft)=>{
+   if(savePending.current){setError('已有保存正在处理，请先处理当前保存；其余草稿仍保留');return Promise.resolve(null);}
+   savePending.current=true;
+@@ -87,7 +89,7 @@
+  const steps=replacement?REPLACEMENT_STEPS:legacySteps;
+  const intros=replacement?['保留原片动作、镜头、节奏与原声，选定需要替换的外观。','同一原片人物跨镜头使用固定编号；交叉和遮挡位置单独确认。','保留运动空间和遮挡关系，明确可替换与受保护的范围。','准备已保存材料，集中确认要求与本次费用，再生成并保存各段结果。','按原片时间轴检查候选，使用连续原声完成本地合成。']:legacyIntros;
+  function selectSegment(id){setSegmentId(id);setMode('puppet');setCurrentTime(project?.segments?.find(s=>s.id===id)?.start||0);}
+- function changeStep(n,targetId,target={}){if(target.segmentId&&project?.segments?.some(item=>item.id===target.segmentId))selectSegment(target.segmentId);setNavigationRequest({...target,step:n,targetId});setStep(n);if(n===3&&replacement)refresh(project.id).catch(e=>setError(e.message));if(replacement)setMode('puppet');else if(n===0)setMode('original');else if(n===1)setMode('puppet');}
++ function changeStep(n,targetId,target={}){if(target.segmentId&&project?.segments?.some(item=>item.id===target.segmentId))selectSegment(target.segmentId);setNavigationRequest({...target,step:n,targetId});setStep(n);if(n===3&&replacement)refresh(project.id).catch(setReadError);if(replacement)setMode('puppet');else if(n===0)setMode('original');else if(n===1)setMode('puppet');}
+  if(loading)return <div className="loading-screen"><RefreshCw className="spin" size={25}/><h1>帧工坊</h1><p>正在打开本地工作台…</p></div>;
+  const records=project&&replacement?workflowRecordLabels(project,state?.project?.id===project.id?state.generation:null,{configured:state?.config?.configured===true,selectedSegmentId:segment?.id,loading:project.id!==activeId||state?.project?.id!==project.id,hasDrafts:draftCount>0,errors:error?[error]:undefined}):[];
+  const scope=stepScope(step),task=STEP_TASKS[step];
+@@ -134,6 +136,7 @@
+       <div>{replacement&&!focusedTask&&!sceneTask&&!materialTask&&!resultTask&&<span className="context-label">第 {step+1} 步，共 5 步</span>}<h1>{sourceTask?(project?.source?'确认分段':'导入原片'):peopleTask?'人物替换':sceneTask?'场景与范围':materialTask?'生成视频':steps[step][0]}</h1>{!focusedTask&&!sceneTask&&!materialTask&&!resultTask&&<p>{replacement?task[0]:intros[step]}</p>}</div>
+       <button className="icon-button" aria-label="刷新项目状态" onClick={()=>safe(()=>refresh(),'refresh')}><RefreshCw size={18} className={busy==='refresh'?'spin':''}/></button>
+      </div>
++     {readError&&<div className="alert-banner" role="status"><AlertCircle size={18}/><div><strong>项目状态暂未更新</strong><p>{readError.message}</p><small>当前内容与未保存修改仍保留；这里只重新读取状态，不重发保存、上传或生成请求。</small></div><Button onClick={()=>refresh(activeIdRef.current||initial.current.projectId).catch(setReadError)}>重新读取状态</Button></div>}
+      {error&&!materialTask&&!resultTask&&<div className="alert-banner" role="alert"><AlertCircle size={18}/><div><strong>本次操作未完成</strong><p>{error.includes("No such file or directory")?"找不到本机文件。请检查文件路径和名称，确认文件仍在原位置。":error}</p><small>请按提示修正后重试。已保存的材料可继续在本机查看。</small></div><button className="icon-button" onClick={()=>setError('')} aria-label="关闭错误提示"><X size={16}/></button></div>}
+      {project?<>
+       {replacement&&!focusedTask&&!sceneTask&&!materialTask&&!resultTask&&<div className="task-context"><div><strong>{scope[0]}</strong><p>{scope[1]}</p></div><div><span>本步产出</span><strong>{task[1]}</strong></div></div>}
+--- /dev/null
++++ b/frontend/src/stateRead.js
+@@ -0,0 +1,46 @@
++import {request} from './api.js';
++
++function aborted(){return new DOMException('读取状态已取消','AbortError');}
++function delay(ms,signal){
++ return new Promise((resolve,reject)=>{
++  if(signal?.aborted){reject(aborted());return;}
++  const cancel=()=>{clearTimeout(timer);reject(aborted());};
++  const timer=setTimeout(()=>{signal?.removeEventListener('abort',cancel);resolve();},ms);
++  signal?.addEventListener('abort',cancel,{once:true});
++ });
++}
++
++// Only this known read-only endpoint retries. No mutation can enter this path.
++export async function readState(projectId,{signal,read=request,wait=delay,timeoutMs=5000}={}){
++ const path='/api/state'+(projectId?'?project_id='+encodeURIComponent(projectId):'');
++ for(let attempt=0;attempt<3;attempt++){
++  if(signal?.aborted)throw aborted();
++  if(attempt)await wait([400,1200][attempt-1],signal);
++  const controller=new AbortController();let timedOut=false;
++  const cancel=()=>controller.abort();
++  signal?.addEventListener('abort',cancel,{once:true});
++  const timer=setTimeout(()=>{timedOut=true;controller.abort();},timeoutMs);
++  try{return await read(path,{method:'GET',signal:controller.signal});}
++  catch(cause){
++   if(signal?.aborted)throw aborted();
++   const error=timedOut?Object.assign(new Error('读取本机状态超时。当前内容和草稿仍保留，请稍后重新读取状态。'),
++    {method:'GET',path:'/api/state',status:0,kind:'network',code:'STATE_READ_TIMEOUT',retryableRead:true}):cause;
++   if(attempt===2||!error.retryableRead)throw error;
++  }finally{clearTimeout(timer);signal?.removeEventListener('abort',cancel);}
++ }
++}
++
++// Schedule after settlement, preventing overlapping polls during a slow restart.
++// A read burst is capped at three requests; ongoing observation backs off to 30s.
++export function startStatePolling({read,onError,interval=3000,maxDelay=30000,schedule=setTimeout,cancel=clearTimeout}){
++ let stopped=false,timer,failures=0,controller;
++ async function tick(){
++  if(stopped)return;
++  controller=new AbortController();
++  try{await read(controller.signal);failures=0;}
++  catch(error){if(!stopped&&error.name!=='AbortError'){failures++;onError(error);}}
++  if(!stopped)timer=schedule(tick,Math.min(maxDelay,interval*2**Math.min(failures,4)));
++ }
++ timer=schedule(tick,interval);
++ return()=>{stopped=true;cancel(timer);controller?.abort();};
++}

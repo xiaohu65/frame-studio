@@ -1,0 +1,152 @@
+.replacement-workspace.materials-workspace .workspace-layout {max-width:1192px;}
+.replacement-workspace.materials-workspace .workspace {max-width:none; padding:42px 44px 64px;}
+.replacement-workspace.materials-workspace .workspace-heading {align-items:center; margin-bottom:26px;}
+.replacement-workspace.materials-workspace .material-global-draft {margin:0 0 18px; color:var(--destructive);}
+.replacement-workspace.materials-workspace .task-tools {display:flex; align-items:center; flex-wrap:wrap; gap:10px 24px; margin-top:20px; padding:0 2px;}
+.replacement-workspace.materials-workspace .task-tools .local-only-state {margin-left:auto;}
+.replacement-workspace.materials-workspace .material-stage {min-width:0; margin:0; padding:0;}
+.replacement-workspace.materials-workspace .material-stage [id] {scroll-margin-top:100px;}
+.replacement-workspace.materials-workspace .material-stage h2>small {display:inline-block; vertical-align:middle;}
+.replacement-workspace.materials-workspace .material-stage .material-pending {color:var(--warning);}
+.replacement-workspace.materials-workspace .material-stage .field {min-width:0; margin:0 0 16px;}
+.replacement-workspace.materials-workspace .material-stage .field input,
+.replacement-workspace.materials-workspace .material-stage .field select,
+.replacement-workspace.materials-workspace .material-stage .field textarea {width:100%; min-width:0;}
+.replacement-workspace.materials-workspace .material-stage .button-row {display:flex; flex-wrap:wrap; gap:8px; margin:0;}
+.replacement-workspace.materials-workspace .material-stage .material-section-heading {display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:8px 20px; margin-bottom:16px;}
+.replacement-workspace.materials-workspace .material-status-section,
+.replacement-workspace.materials-workspace .material-segment-section {min-width:0; padding:22px;}
+.replacement-workspace.materials-workspace .material-status-heading {display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:8px 20px; margin-bottom:12px;}
+.replacement-workspace.materials-workspace .material-state-line {display:flex; align-items:baseline; flex-wrap:wrap; gap:5px 18px; margin-bottom:16px;}
+.replacement-workspace.materials-workspace .material-next-note {margin:12px 0 16px;}
+.replacement-workspace.materials-workspace .material-todo-list {display:grid; margin:6px 0 10px;}
+.replacement-workspace.materials-workspace .material-todo-row {display:flex; align-items:center; justify-content:space-between; gap:12px 20px; min-height:48px; padding:10px 0;}
+.replacement-workspace.materials-workspace .material-todo-row>div {display:flex; align-items:baseline; flex-wrap:wrap; gap:5px 16px; min-width:0;}
+.replacement-workspace.materials-workspace .material-todo-row span {color:var(--destructive);}
+.replacement-workspace.materials-workspace .material-todo-row>div>p {flex-basis:100%; display:-webkit-box; -webkit-box-orient:vertical; -webkit-line-clamp:2; overflow:hidden;}
+.replacement-workspace.materials-workspace .material-issue-details {margin:12px 0;}
+.replacement-workspace.materials-workspace .material-issue-group {margin:16px 0 0; padding-top:16px;}
+.replacement-workspace.materials-workspace .material-issue-group ul {list-style:none; padding:0; margin:0;}
+.replacement-workspace.materials-workspace .material-issue-group li {display:flex; align-items:flex-start; justify-content:space-between; gap:12px 20px; padding:10px 0;}
+.replacement-workspace.materials-workspace .material-issue-group li>div {min-width:0;}
+.replacement-workspace.materials-workspace .material-issue-group li p { overflow-wrap:anywhere;}
+.replacement-workspace.materials-workspace .material-version-note {margin:12px 0 0;}
+.replacement-workspace.materials-workspace .material-project-actions {margin-top:18px; padding-top:18px;}
+.replacement-workspace.materials-workspace .material-project-actions .material-section-heading {margin-bottom:12px;}
+.replacement-workspace.materials-workspace .material-project-actions>.button-row {gap:10px;}
+.replacement-workspace.materials-workspace .material-estimate-state {display:flex; align-items:baseline; flex-wrap:wrap; gap:5px 14px; margin-top:14px;}
+.replacement-workspace.materials-workspace .material-estimate-state>[data-slot="collapsible"] {flex-basis:100%; min-width:0; margin-top:4px;}
+.replacement-workspace.materials-workspace .material-estimate-state>[data-slot="collapsible"] ul {padding-left:18px; margin:8px 0;}
+.replacement-workspace.materials-workspace .material-stage pre {max-height:320px; overflow:auto; white-space:pre-wrap; overflow-wrap:anywhere;}
+.replacement-workspace.materials-workspace .material-model-settings {padding:22px 0; margin:0;}
+.replacement-workspace.materials-workspace .material-model-settings>.material-section-heading {margin-bottom:12px;}
+.replacement-workspace.materials-workspace .material-model-row {display:grid; grid-template-columns:minmax(190px,1.1fr) minmax(120px,.65fr) minmax(170px,1fr); align-items:end; gap:18px;}
+.replacement-workspace.materials-workspace .material-model-row>.field {margin:0;}
+.replacement-workspace.materials-workspace .material-model-row>span {padding-bottom:5px;}
+.replacement-workspace.materials-workspace .material-model-details {margin-top:12px;}
+.replacement-workspace.materials-workspace .material-model-details dl {display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:0 24px; max-width:700px; margin:12px 0;}
+.replacement-workspace.materials-workspace .material-model-details dl>div {display:flex; align-items:baseline; justify-content:space-between; gap:12px; padding:7px 0;}
+.replacement-workspace.materials-workspace .material-model-details dd {margin:0; text-align:right;}
+.replacement-workspace.materials-workspace .material-segment-section {margin:24px 0 0;}
+.replacement-workspace.materials-workspace .material-segment-section>.field { margin-bottom:20px;}
+.replacement-workspace.materials-workspace .material-reference-heading {display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:8px 20px; margin-bottom:12px;}
+.replacement-workspace.materials-workspace .material-reference-groups {display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); align-items:start; gap:14px; margin:0 0 20px;}
+.replacement-workspace.materials-workspace .material-reference-group {min-width:0; padding:14px;}
+.replacement-workspace.materials-workspace .material-reference-group>strong {display:block; overflow-wrap:anywhere;}
+.replacement-workspace.materials-workspace .material-reference-group>small {display:block; overflow-wrap:anywhere;}
+.replacement-workspace.materials-workspace .material-reference-images {display:flex; flex-wrap:wrap; align-items:flex-start; gap:9px; margin-top:12px;}
+.replacement-workspace.materials-workspace .material-reference-images>a {display:flex; align-items:center; flex-direction:column; gap:5px; min-width:0;}
+.replacement-workspace.materials-workspace .material-reference-images img {display:block; width:58px; height:70px; object-fit:contain;}
+.replacement-workspace.materials-workspace .material-reference-images span {max-width:82px; overflow-wrap:anywhere; text-align:center;}
+.replacement-workspace.materials-workspace .material-prompt-editor {min-width:0; padding-top:14px; margin-top:16px;}
+.replacement-workspace.materials-workspace .material-prompt-summary { flex-wrap:wrap;}
+.replacement-workspace.materials-workspace .material-prompt-summary>span:first-child {flex:1; min-width:150px;}
+.replacement-workspace.materials-workspace .material-prompt-body {min-width:0; padding-top:16px;}
+.replacement-workspace.materials-workspace .material-prompt-scope {margin:0 0 12px;}
+.replacement-workspace.materials-workspace .material-prompt-fieldset {min-width:0; margin:0; padding:0;}
+.replacement-workspace.materials-workspace .material-prompt-fieldset:disabled {cursor:progress;}
+.replacement-workspace.materials-workspace .material-prompt-textarea {display:block; width:100%; min-width:0; resize:vertical;}
+.replacement-workspace.materials-workspace .material-prompt-note {margin:12px 0;}
+.replacement-workspace.materials-workspace .material-prompt-note[role="status"] {color:var(--destructive);}
+.replacement-workspace.materials-workspace .material-prompt-actions {gap:10px; margin:12px 0;}
+.replacement-workspace.materials-workspace .material-prompt-confirm {max-width:none; margin:16px 0 0;}
+.replacement-workspace.materials-workspace .material-files-section {min-width:0; padding:18px 0; margin-top:22px;}
+.replacement-workspace.materials-workspace .material-files-section .table-scroll {margin:12px 0 18px;}
+.replacement-workspace.materials-workspace .material-files-section .mapping-table th small,
+.replacement-workspace.materials-workspace .material-files-section .mapping-table td small {display:block; overflow-wrap:anywhere;}
+.replacement-workspace.materials-workspace .material-files-section .preparation-links {gap:10px; margin:14px 0;}
+.replacement-workspace.materials-workspace .material-files-section .preparation-links>[data-slot="collapsible"] {flex-basis:100%; min-width:0; margin:10px 0; padding:0;}
+.replacement-workspace.materials-workspace .material-version-details {padding-top:12px; margin-top:16px;}
+.replacement-workspace.materials-workspace .material-version-details > [data-slot="collapsible-content"] > p { overflow-wrap:anywhere;}
+.replacement-workspace.materials-workspace .material-version-details > [data-slot="collapsible-content"] > div {padding:14px 0;}
+.replacement-workspace.materials-workspace .material-version-details strong,
+.replacement-workspace.materials-workspace .material-version-details code,
+.replacement-workspace.materials-workspace .material-package-details strong,
+.replacement-workspace.materials-workspace .material-package-details code {display:block; margin:7px 0; overflow-wrap:anywhere; white-space:pre-wrap;}
+.replacement-workspace.materials-workspace .material-review-section {padding:22px 0;}
+.replacement-workspace.materials-workspace .material-review-section>.material-section-heading {margin-bottom:10px;}
+.replacement-workspace.materials-workspace .material-review-details {margin:12px 0 16px;}
+.replacement-workspace.materials-workspace .material-review-details .check-label {margin:12px 0;}
+.replacement-workspace.materials-workspace .material-review-save {display:flex; align-items:center; flex-wrap:wrap; gap:10px 18px;}
+.replacement-workspace.materials-workspace .material-review-section>.material-review-record {margin:12px 0 0;}
+.replacement-workspace.materials-workspace .material-package-section {padding:22px 0;}
+.replacement-workspace.materials-workspace .material-package-section>.material-section-heading {margin-bottom:12px;}
+.replacement-workspace.materials-workspace .material-package-actions {display:flex; align-items:center; flex-wrap:wrap; gap:10px 16px;}
+.replacement-workspace.materials-workspace .material-package-details {margin-top:14px;}
+.replacement-workspace.materials-workspace .material-cloud-state {display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:14px 20px; margin-top:20px;}
+
+@media (max-width:1100px) {
+  .replacement-workspace.materials-workspace .workspace {padding:32px 28px 48px;}
+  .replacement-workspace.materials-workspace .material-model-row {grid-template-columns:minmax(0,1.25fr) minmax(0,1fr); gap:12px 18px;}
+  .replacement-workspace.materials-workspace .material-model-row>span {grid-column:1/-1; padding:0;}
+  .replacement-workspace.materials-workspace .material-reference-groups {grid-template-columns:repeat(2,minmax(0,1fr)); gap:12px;}
+  .replacement-workspace.materials-workspace .material-project-actions>.button-row {gap:8px;}
+}
+@media (max-width:900px) {
+  .replacement-workspace.materials-workspace .workspace {padding:28px 22px 40px;}
+  .replacement-workspace.materials-workspace .material-reference-images {gap:7px;}
+  .replacement-workspace.materials-workspace .material-reference-images img {width:52px; height:64px;}
+  .replacement-workspace.materials-workspace .material-issue-group li {flex-wrap:wrap; gap:6px;}
+}
+@media (max-width:760px) {
+  .replacement-workspace.materials-workspace .workspace {padding:24px 16px 40px;}
+  .replacement-workspace.materials-workspace .workspace-heading {margin-bottom:20px;}
+  .replacement-workspace.materials-workspace .task-tools {gap:4px 18px;}
+  .replacement-workspace.materials-workspace .task-tools .local-only-state {flex-basis:100%; margin-left:0;}
+  .replacement-workspace.materials-workspace .material-stage [id] {scroll-margin-top:140px;}
+  .replacement-workspace.materials-workspace .material-stage .material-section-heading {gap:6px 12px; margin-bottom:14px;}
+  .replacement-workspace.materials-workspace .material-status-section,
+.replacement-workspace.materials-workspace .material-segment-section {padding:16px 14px;}
+  .replacement-workspace.materials-workspace .material-status-heading {align-items:flex-start; gap:6px 12px;}
+  .replacement-workspace.materials-workspace .material-status-heading>span {flex-basis:100%;}
+  .replacement-workspace.materials-workspace .material-state-line {gap:5px 12px; margin-bottom:14px;}
+  .replacement-workspace.materials-workspace .material-todo-row {gap:10px; padding:10px 0;}
+  .replacement-workspace.materials-workspace .material-todo-row>div {display:block;}
+  .replacement-workspace.materials-workspace .material-todo-row strong {display:block;}
+  .replacement-workspace.materials-workspace .material-todo-row span {display:block; margin-top:4px;}
+  .replacement-workspace.materials-workspace .material-project-actions {padding-top:16px; margin-top:16px;}
+  .replacement-workspace.materials-workspace .material-estimate-state {margin-top:12px;}
+  .replacement-workspace.materials-workspace .material-model-settings {padding:20px 0;}
+  .replacement-workspace.materials-workspace .material-model-row {grid-template-columns:minmax(0,1fr); gap:12px;}
+  .replacement-workspace.materials-workspace .material-model-row>span {grid-column:auto;}
+  .replacement-workspace.materials-workspace .material-model-details dl {grid-template-columns:minmax(0,1fr);}
+  .replacement-workspace.materials-workspace .material-segment-section {margin-top:20px;}
+  .replacement-workspace.materials-workspace .material-segment-section>.field {max-width:none; margin-bottom:16px;}
+  .replacement-workspace.materials-workspace .material-reference-heading {gap:8px;}
+  .replacement-workspace.materials-workspace .material-reference-groups {grid-template-columns:minmax(0,1fr); gap:10px; margin-bottom:16px;}
+  .replacement-workspace.materials-workspace .material-reference-group {padding:12px;}
+  .replacement-workspace.materials-workspace .material-reference-images {gap:10px; margin-top:10px;}
+  .replacement-workspace.materials-workspace .material-reference-images img {width:58px; height:70px;}
+  .replacement-workspace.materials-workspace .material-prompt-summary>span:first-child {min-width:0;}
+  .replacement-workspace.materials-workspace .material-prompt-count {flex-basis:100%; padding-left:21px;}
+  .replacement-workspace.materials-workspace .material-prompt-body {padding-top:14px;}
+  .replacement-workspace.materials-workspace .material-prompt-confirm .button-row {width:100%;}
+  .replacement-workspace.materials-workspace .material-files-section {padding:16px 0; margin-top:18px;}
+  .replacement-workspace.materials-workspace .material-review-section,
+.replacement-workspace.materials-workspace .material-package-section {padding:20px 0;}
+  .replacement-workspace.materials-workspace .material-review-save {gap:10px;}
+  .replacement-workspace.materials-workspace .material-review-save>span {flex-basis:100%;}
+  .replacement-workspace.materials-workspace .material-package-actions {gap:10px;}
+  .replacement-workspace.materials-workspace .material-package-actions>span {flex-basis:100%;}
+  .replacement-workspace.materials-workspace .material-cloud-state {gap:12px; margin-top:18px;}
+}

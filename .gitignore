@@ -1,0 +1,35 @@
+# Local project data, media, provider credentials and task journals
+/data/
+**/private-config*.json
+.env
+.env.*
+!.env.example
+!.env.*.example
+*.pem
+*.key
+*.p12
+*.pfx
+
+# Dependencies, builds and caches
+/frontend/node_modules/
+/frontend/dist/
+/frontend/.frame-build-*/
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.pytest_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+
+# Machine-local diagnostics and production session records
+/docs/当前进度与恢复.json
+/scripts/request-error-recovery/manifest.json
+/scripts/request-error-recovery/verification.json
+.DS_Store
+*.log
+/docs/generation-verification.md
+/docs/wan-api.md
+/docs/Wan3接口预检说明.md
+/docs/白模制作流程_v3.md

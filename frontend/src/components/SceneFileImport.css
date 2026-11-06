@@ -1,0 +1,45 @@
+.scene-file-control-row {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.scene-file-control-row [hidden],
+.scene-file-path-content[hidden] {
+  display: none;
+}
+
+.scene-file-control-row [data-state='open'] .scene-file-path-arrow {
+  transform: rotate(180deg);
+}
+
+.scene-file-path-content {
+  gap: 12px;
+  padding: 16px;
+  margin-top: 12px;
+}
+
+@layer components {
+
+  .scene-file-path-content {
+  display: grid;
+  }
+}
+
+.scene-file-path-form {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto auto;
+  align-items: end;
+  gap: 12px;
+}
+
+.scene-file-path-field {
+  display: grid;
+  min-width: 0;
+  gap: 8px;
+}
+
+.scene-file-path-field [data-slot="input"] {
+  width: 100%;
+}

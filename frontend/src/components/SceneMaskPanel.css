@@ -1,0 +1,95 @@
+.scene-scope-panel[data-slot='card'] {
+  min-width: 0;
+  scroll-margin-top: calc(var(--studio-header-height) + 24px);
+}
+
+.scene-scope-panel > [data-slot='card-content'] {
+  display: grid;
+  gap: var(--scene-space, 24px);
+}
+
+.scene-scope-tabs {
+  margin-bottom: 20px;
+}
+
+.scene-scope-status {
+  display: grid;
+  gap: 12px;
+  margin: 0;
+}
+
+.scene-scope-status > div {
+  display: grid;
+  grid-template-columns: 72px minmax(0, 1fr);
+  align-items: center;
+  gap: 12px;
+}
+
+.scene-scope-status dd {
+  min-width: 0;
+  margin: 0;
+}
+
+.scene-scope-tab {
+  display: grid;
+  min-width: 0;
+  gap: var(--scene-space, 24px);
+}
+
+.scene-scope-panel :is(.scene-scope-tab, .scene-scope-disclosure-content)[hidden] {
+  display: none;
+}
+
+.scene-scope-disclosure {
+  min-width: 0;
+}
+
+.scene-scope-disclosure-trigger[data-state='open'] > svg {
+  transform: rotate(180deg);
+}
+
+.scene-scope-disclosure-content {
+  gap: 16px;
+  margin-top: 16px;
+  min-width: 0;
+}
+
+@layer components {
+  .scene-scope-disclosure-content {
+    display: grid;
+  }
+}
+
+.scene-scope-file-list {
+  display: grid;
+  min-width: 0;
+  gap: 24px;
+  margin: 0;
+  padding: 0;
+}
+
+.scene-scope-file {
+  display: grid;
+  justify-items: start;
+  min-width: 0;
+  gap: 12px;
+}
+
+.scene-scope-file > .scene-file-controls,
+.scene-scope-file > .scene-scope-disclosure {
+  width: 100%;
+}
+
+.scene-scope-note,
+.scene-scope-path {
+  max-width: 100%;
+  overflow-wrap: anywhere;
+}
+
+.scene-scope-technical {
+  max-height: 240px;
+  margin: 0;
+  overflow: auto;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}

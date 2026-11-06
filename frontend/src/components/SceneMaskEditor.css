@@ -1,0 +1,206 @@
+.mask-editor-ui {
+  --mask-editor-space: 24px;
+}
+
+.mask-editor-ui,
+.mask-editor-group,
+.mask-editor-keyframes {
+  display: grid;
+  gap: var(--mask-editor-space);
+  min-width: 0;
+}
+
+.mask-editor-group {
+  margin: 0;
+  padding: 0;
+}
+
+.mask-editor-field {
+  display: grid;
+  align-content: start;
+  gap: 8px;
+  min-width: 0;
+}
+
+.mask-editor-workspace {
+  display: grid;
+  gap: 16px;
+  min-width: 0;
+}
+
+.mask-editor-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--mask-editor-space);
+}
+
+.mask-editor-grid[data-columns='3'] {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.mask-editor-ui :is([data-slot="select-trigger"], [data-slot="input"]) {
+  width: 100%;
+  min-width: 0;
+}
+
+.mask-editor-navigation {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: end;
+  gap: 12px var(--mask-editor-space);
+}
+
+.mask-editor-navigation > .mask-editor-field:first-child {
+  flex: 0 0 132px;
+}
+
+.mask-editor-navigation > .mask-editor-actions {
+  margin-inline-start: auto;
+}
+
+.mask-editor-frame-facts {
+  align-content: center;
+  align-items: center;
+  font-variant-numeric: tabular-nums;
+}
+
+.mask-editor-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  min-width: 0;
+}
+
+.mask-editor-slider {
+  display: flex;
+  align-items: center;
+}
+
+.mask-editor-canvas,
+.mask-editor-video {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  background: var(--media-background);
+}
+
+.mask-editor-canvas {
+  display: grid;
+  place-items: center;
+  color: var(--media-foreground);
+}
+
+.mask-editor-canvas > canvas:not([hidden]) {
+  display: block;
+  width: 100%;
+  height: 100%;
+  touch-action: none;
+}
+
+.mask-editor-canvas[data-repairing='true'] > canvas {
+  cursor: crosshair;
+}
+
+.mask-editor-canvas > [role='status'] {
+  position: absolute;
+  padding: 16px;
+}
+
+/* The polygon overlay and the source video share the same source-ratio rectangle. */
+.mask-editor-video {
+  max-width: 820px;
+  margin-inline: auto;
+}
+
+.mask-editor-video > video {
+  position: absolute;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.mask-editor-polygon-surface {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.mask-editor-polygon-surface[data-drawing='true'] {
+  pointer-events: auto;
+  touch-action: none;
+  cursor: crosshair;
+  background: var(--media-overlay-soft);
+}
+
+.mask-editor-polygon-svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+.mask-editor-notice {
+  overflow-wrap: anywhere;
+}
+
+.mask-editor-records,
+.mask-editor-confirmations,
+.mask-editor-retained {
+  display: grid;
+  gap: 12px;
+}
+
+.mask-editor-record-heading,
+.mask-editor-footer,
+.mask-editor-region {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px var(--mask-editor-space);
+}
+
+.mask-editor-footer {
+  flex-wrap: wrap;
+}
+
+.mask-editor-confirmations {
+  margin-top: 4px;
+  padding-top: 16px;
+}
+
+.mask-editor-confirmations > label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: fit-content;
+}
+
+.mask-editor-retained > [data-slot="button"] {
+  justify-self: start;
+}
+
+.mask-editor-disclosure-content {
+  gap: var(--mask-editor-space);
+  padding-top: 16px;
+}
+
+.mask-editor-preview {
+  display: block;
+  width: 100%;
+  max-height: 540px;
+  background: var(--media-background);
+}
+
+.mask-editor-keyframes {
+  gap: 12px;
+}
+
+@layer components {
+
+  .mask-editor-disclosure-content {
+  display: grid;
+  }
+}

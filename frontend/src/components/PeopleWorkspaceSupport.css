@@ -1,0 +1,75 @@
+.support-dialog.workspace-support-dialog.people-workspace-reference-support {
+  width: min(1080px, 100%);
+}
+
+.people-support-reference .segment-list {
+  gap: 8px;
+  margin: 0;
+}
+
+.people-support-reference .segment-row:has(> [data-slot="radio-group-item"]) {
+  justify-content: flex-start;
+  cursor: pointer;
+}
+
+.people-support-reference .segment-thumb {
+  background: var(--accent);
+  color: var(--muted-foreground);
+}
+
+.people-support-reference .people-reference-segment-title {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+}
+
+.people-support-reference .segment-copy {
+  min-width: 0;
+}
+
+.people-support-reference .people-reference-segment-title > span,
+.people-support-reference .segment-copy small {
+  font-variant-numeric: tabular-nums;
+}
+
+.people-support-reference .preview-size-controls {
+  margin-bottom: 12px;
+}
+
+.people-support-reference .source-media-expand {
+  box-sizing: border-box;
+}
+
+.people-support-reference .source-preview-tabs {
+  display: inline-flex;
+}
+
+.people-support-reference .preview {
+  background: var(--media-background);
+}
+
+.workspace-support-dialog.people-workspace-reference-support .people-support-reference .timeline {
+  margin: 0;
+  padding-top: 16px;
+}
+
+.people-support-reference :is(.time-ruler, .timeline-track > span, .timeline-track small, .track-placeholder) {
+  color: var(--muted-foreground);
+}
+
+.people-support-reference .clip[data-slot="button"] {
+  position: absolute;
+  justify-content: flex-start;
+  height: 36px;
+  min-width: 0;
+}
+
+
+.people-support-reference .playhead {
+  background: var(--muted-foreground);
+  pointer-events: none;
+}
+
+.people-support-reference .audio-area {
+  background: var(--muted);
+}

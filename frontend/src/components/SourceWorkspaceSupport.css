@@ -1,0 +1,170 @@
+.support-dialog.workspace-support-dialog.source-workspace-support {
+  width: min(880px, 100%);
+}
+
+.source-workspace-support.workspace-support-dialog .support-dialog-heading {
+  padding: var(--source-section-space, 24px) 0;
+  margin-bottom: var(--source-section-space, 24px);
+}
+
+.source-support-toggle .source-support-chevron {
+  flex-shrink: 0;
+}
+
+.source-support-toggle[data-state='open'] .source-support-chevron {
+  transform: rotate(180deg);
+}
+
+.source-job-record {
+  padding-block: 12px;
+}
+
+.source-job-record:first-child {
+  padding-top: 0;
+}
+
+.source-job-record:last-child {
+  padding-bottom: 0;
+}
+
+.source-job-label {
+  display: grid;
+  grid-template-columns: 20px minmax(0, 1fr) auto;
+  align-items: start;
+  gap: 12px;
+}
+
+.source-job-copy {
+  display: grid;
+  gap: 4px;
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+.source-job-status[data-slot="badge"] {
+  white-space: normal;
+}
+
+.source-job-icon[data-tone='success'] {color: var(--success);}
+.source-job-icon[data-tone='warning'] {color: var(--warning);}
+.source-job-icon[data-tone='error'] {color: var(--destructive);}
+
+.source-job-details {
+  margin: 12px 0 0 32px;
+  padding: 12px;
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+.source-job-download {
+  display: inline-flex;
+  align-items: center;
+  align-self: flex-start;
+  gap: 8px;
+}
+
+.source-job-json {
+  max-height: 280px;
+  margin: 0;
+  padding: 12px;
+  overflow: auto;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+
+@media (max-width: 760px) {
+  .source-job-label {
+    grid-template-columns: 20px minmax(0, 1fr);
+    row-gap: 8px;
+  }
+
+  .source-job-status {
+    grid-column: 2;
+    justify-self: start;
+  }
+
+  .source-job-details {
+    margin-left: 0;
+  }
+}
+
+/* First-step support uses the dialog heading once and keeps details per record. */
+.source-step-support.workspace-support-dialog {
+  overflow: hidden;
+}
+
+.source-step-support.workspace-support-dialog .support-dialog-inner {
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  max-height: calc(100dvh - 112px);
+  padding: 0;
+}
+
+.source-step-support.workspace-support-dialog .support-dialog-heading {
+  flex: 0 0 auto;
+  padding: 0 0 12px;
+  margin-bottom: 16px;
+}
+
+.source-step-support.workspace-support-dialog .support-dialog-body {
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+}
+
+.source-step-support .source-support-history-compact {
+  display: grid;
+  gap: 16px;
+  min-width: 0;
+}
+
+.source-step-support .source-job-record {
+  padding-block: 16px;
+}
+
+.source-step-support .source-job-record:first-child {
+  padding-top: 0;
+}
+
+.source-step-support .source-job-record:last-child {
+  padding-bottom: 0;
+}
+
+.source-step-support .source-job-extra {
+  margin: 8px 0 0 32px;
+  min-width: 0;
+}
+
+.source-step-support .source-job-extra .source-support-expanded {
+  margin-top: 8px;
+}
+
+.source-step-support .source-job-extra-content,
+.source-step-support .source-job-result {
+  display: grid;
+  gap: 12px;
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+.source-step-support .source-job-result {
+  justify-items: start;
+}
+
+.source-step-support .source-job-json {
+  max-height: 220px;
+  max-width: 100%;
+  padding: 0;
+}
+
+@media (max-width: 760px) {
+  .source-step-support.workspace-support-dialog .support-dialog-inner {
+    max-height: calc(100dvh - 88px);
+  }
+
+  .source-step-support .source-job-extra {
+    margin-left: 0;
+  }
+}
