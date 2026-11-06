@@ -174,6 +174,17 @@ class StartupDiagnosticsTest(unittest.TestCase):
                 with launcher.launch_lock(runtime):
                     self.fail("second launcher acquired lock")
 
+    def test_python_minimum_matches_locked_dependencies(self):
+        runner = unittest.mock.Mock(return_value=subprocess.CompletedProcess([], 0, "", ""))
+        with patch.object(launcher.sys, "version_info", (3, 11, 9)):
+            with self.assertRaisesRegex(launcher.StartupError, "Python 3.12"):
+                launcher.check_dependencies(runner)
+        runner.assert_not_called()
+        with patch.object(launcher.sys, "version_info", (3, 12, 0)), \
+             patch.object(launcher.shutil, "which", return_value="fixture"):
+            launcher.check_dependencies(runner)
+        runner.assert_called_once()
+
     def test_missing_dependencies_are_actionable_and_do_not_install(self):
         failure = subprocess.CompletedProcess([], 1, "", "private traceback must not be shown")
         with self.assertRaises(launcher.StartupError) as error:

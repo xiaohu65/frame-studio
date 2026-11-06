@@ -116,7 +116,7 @@ export default function App(){
  async function create(e){e.preventDefault();await safe(async()=>{const p=await request('/api/projects',{method:'POST',body:{name:newName.trim()||'未命名项目'}});const created=p.project||p;activeIdRef.current=created.id;setActiveId(created.id);setProject(created);setNewOpen(false);setNewName('');setStep(0);setMode('puppet');setNavigationRequest({targetId:null});await refresh(created.id);},'create');}
  const segment=project?.segments?.find(s=>s.id===segmentId)||project?.segments?.[0];
  const jobs=(state?.jobs||[]).filter(j=>!j.project_id||j.project_id===project?.id).sort((a,b)=>(b.created_at||'').localeCompare(a.created_at||''));
- const replacement=project?.workflow==='replacement';
+ const replacement=!project||project.workflow==='replacement';
  const sourceTask=replacement&&step===0;
  const peopleTask=replacement&&step===1,focusedTask=sourceTask||peopleTask;
  const sceneTask=replacement&&step===2;
@@ -126,7 +126,7 @@ export default function App(){
  const steps=replacement?REPLACEMENT_STEPS:legacySteps;
  const intros=replacement?['以原片为动作和时间依据，选定本批唯一交付档位。','同一原片人物跨镜头使用固定编号；交叉和遮挡位置单独确认。','保留运动空间和遮挡关系，明确可替换与受保护的范围。','准备已保存材料，集中确认要求与本次费用，再生成并保存各段结果。','逐段检查原始回片并对照验收，按原切点接回连续原声。']:legacyIntros;
  function selectSegment(id){setSegmentId(id);setMode('puppet');setCurrentTime(project?.segments?.find(s=>s.id===id)?.start||0);}
- function changeStep(n,targetId,target={}){if(target.segmentId&&project?.segments?.some(item=>item.id===target.segmentId))selectSegment(target.segmentId);setNavigationRequest({...target,step:n,targetId});setStep(n);if(n===3&&replacement)refresh(project.id).catch(setReadError);if(replacement)setMode('puppet');else if(n===0)setMode('original');else if(n===1)setMode('puppet');}
+ function changeStep(n,targetId,target={}){if(target.segmentId&&project?.segments?.some(item=>item.id===target.segmentId))selectSegment(target.segmentId);setNavigationRequest({...target,step:n,targetId});setStep(n);if(n===3&&replacement&&project?.id)refresh(project.id).catch(setReadError);if(replacement)setMode('puppet');else if(n===0)setMode('original');else if(n===1)setMode('puppet');}
  if(loading)return <div role="status" className="loading-screen flex"><Spinner /><h1>帧工坊</h1><p>正在打开本地工作台…</p></div>;
  const scope=stepScope(step),task=STEP_TASKS[step];
  const runningJobs=jobs.filter(j=>['QUEUED','RUNNING','PROCESSING'].includes(j.status));

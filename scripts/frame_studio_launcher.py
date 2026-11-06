@@ -330,8 +330,8 @@ def launch_lock(runtime):
 
 
 def check_dependencies(runner=subprocess.run):
-    if sys.version_info < (3, 10):
-        raise StartupError("需要 Python 3.10 或更新版本，请设置 FRAME_STUDIO_PYTHON。")
+    if sys.version_info < (3, 12):
+        raise StartupError("当前依赖需要 Python 3.12 或更新版本，请按 README「首次使用」准备环境。")
     checked = runner([sys.executable, "-c", "import PIL, numpy"], capture_output=True, text=True)
     if checked.returncode:
         raise StartupError(f"Python 环境缺少可用的 Pillow / NumPy。当前环境：{sys.executable}。"
